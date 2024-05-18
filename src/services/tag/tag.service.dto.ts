@@ -1,9 +1,13 @@
-export interface CreateTagDto {
+export interface ITagCreateDto {
     name: string;
     color: string;
 }
 
-export interface UpdateTagDto {
+export interface ITagUpdateDto {
     name?: string;
     color?: string;
+}
+
+export interface ITagDto extends ITagCreateDto {
+    id: string;
 }
