@@ -3,7 +3,7 @@ import { ITag } from "../../models/tag/tag.model.interface";
 import { TagEntity } from "./tag.entity";
 
 
-export class TagService {
+export class TagRepository {
 
     private model: typeof Tag;
 

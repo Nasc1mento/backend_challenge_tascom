@@ -1,9 +1,10 @@
 import { Task } from "../../models/task";
 import { ITask } from "../../models/task/task.model.interface";
+import { IRepository } from "../repository.interface";
 import { TaskEntity } from "./task.entity";
 
 
-export class TaskService {
+export class TaskRepository implements IRepository<ITask>{
 
     private model: typeof Task;
 
@@ -11,7 +12,7 @@ export class TaskService {
         this.model = Task;
     }
 
-    async createTask(task: ITask): Promise<ITask> {
+    async save(task: ITask): Promise<ITask> {
         const newTask = new Promise<ITask>(async(resolve, reject) => {
             await this.model.create(new TaskEntity(task)).then((task) => {
                 resolve(task);
@@ -23,7 +24,7 @@ export class TaskService {
         return newTask;
     }
 
-    async getTasks(): Promise<ITask[]> {
+    async getAll(): Promise<ITask[]> {
         const tasksCollected = new Promise<ITask[]>(async(resolve, reject) => {
             await this.model.find().then((tasks) => {
                 resolve(tasks);
@@ -35,7 +36,7 @@ export class TaskService {
         return tasksCollected;
     }
 
-    async updateTask(id: string, task: ITask): Promise<ITask> {
+    async update(id: string, task: ITask): Promise<ITask> {
         const updatedTask = new Promise<ITask>(async (resolve, reject) => {
             await this.model.findByIdAndUpdate(id, task, {new: true}).then((task) => {
                     resolve(task);
@@ -47,7 +48,7 @@ export class TaskService {
         return updatedTask;
     }
 
-    async deleteTask(id: string): Promise<ITask> {
+    async delete(id: string): Promise<ITask> {
         const deletedTag = new Promise<ITask>(async(resolve, reject) => {
             this.model.findByIdAndDelete(id).then((task) => {
                 resolve(task)
@@ -57,5 +58,17 @@ export class TaskService {
         });
 
         return deletedTag;
+    }
+
+    async get(id: string): Promise<ITask> {
+        const taskCollected = new Promise<ITask>(async(resolve, reject) => {
+            await this.model.findById(id).then((task) => {
+                resolve(task);
+            }).catch((error) => {
+                reject(error);
+            })
+        });
+
+        return taskCollected;
     }
 }
