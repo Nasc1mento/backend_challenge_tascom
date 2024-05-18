@@ -1,12 +1,11 @@
 import {Schema, model} from 'mongoose';
 import { ITag } from './tag.model.interface';
 
-
 export const TagSchema = new Schema<ITag>(
     {
         name: {
             type: String,
-            required: true
+            required: true,
         },
         color: {
             type: String,

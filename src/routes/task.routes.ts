@@ -1,31 +1,36 @@
 import {Router, Request, Response} from "express";
+import { TaskController } from "../controllers/task.controller";
 
 export class TaskRoutes {
     
-    private route: Router;
+    private router: Router;
+    private controller: TaskController;
 
-    constructor (route: Router) {
-        this.route = route;
+    constructor (router: Router) {
+        this.router = router;
+        this.controller = new TaskController();
     }
 
     setRoutes(): void {
-        
 
-        this.route.get("/tasks", (req: Request, res: Response) => {
-            res.send({message: "GET /tasks"});
+        this.router.get("/tasks", (req: Request, res: Response) => {
+            this.controller.findAll(req, res);
         });
 
-        this.route.post("/tasks", (req: Request, res: Response) => {
-            
+        this.router.get("/tasks/:id", (req: Request, res: Response) => {
+            this.controller.findById(req, res);
         });
 
-        this.route.put("/tasks/:id", (req: Request, res: Response) => {
-            
+        this.router.post("/tasks", (req: Request, res: Response) => {
+            this.controller.create(req, res);
         });
 
-        this.route.delete("/tasks/:id", (req: Request, res: Response) => {
-            
+        this.router.put("/tasks/:id", (req: Request, res: Response) => {
+            this.controller.update(req, res);
         });
 
+        this.router.delete("/tasks/:id", (req: Request, res: Response) => {
+            this.controller.delete(req, res);
+        });
     }
 }
