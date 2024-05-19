@@ -1,4 +1,4 @@
-import { Tag } from "../../models/tag";
+import { Tag } from "../../models/tag/tag.model";
 import { ITag } from "../../models/tag/tag.model.interface";
 import { IRepository } from "../repository.interface";
 import { TagEntity } from "./tag.entity";

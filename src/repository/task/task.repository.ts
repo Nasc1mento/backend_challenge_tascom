@@ -1,4 +1,4 @@
-import { Task } from "../../models/task";
+import { Task } from "../../models/task/task.model";
 import { ITask } from "../../models/task/task.model.interface";
 import { IRepository } from "../repository.interface";
 import { TaskEntity } from "./task.entity";
