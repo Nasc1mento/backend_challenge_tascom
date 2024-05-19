@@ -11,7 +11,6 @@ export class TagController {
         this.service = new TagService();
     }
 
-
     async findById(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
         const tag = await this.service.getById(id);

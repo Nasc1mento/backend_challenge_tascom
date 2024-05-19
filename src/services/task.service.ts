@@ -28,4 +28,12 @@ export class TaskService {
     deleteById(id: string): Promise<ITask> {
         return this.repository.delete(id);
     }
+
+    addTagToTask(id: string, tag: string): Promise<ITask> {
+        return this.repository.addTag(id, tag);
+    }
+
+    getTasksByTag(tag: string): Promise<ITask[]> {
+        return this.repository.getAllByTag(tag);
+    }
 }

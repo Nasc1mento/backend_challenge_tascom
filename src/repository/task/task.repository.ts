@@ -71,4 +71,27 @@ export class TaskRepository implements IRepository<ITask>{
 
         return taskCollected;
     }
+
+    async addTag(taskId: string, tagId: string): Promise<ITask> {
+        const task = new Promise<ITask>(async(resolve, reject) => {
+            await this.model.findByIdAndUpdate(taskId, {$push: {tags: tagId}}, {new: true}).then((task) => {
+                resolve(task);
+            }).catch((error) => {
+                reject(error);
+            })
+        });
+        return task;
+    }
+
+    async getAllByTag(tagId: string): Promise<ITask[]> {
+        const tasks = new Promise<ITask[]>(async(resolve, reject) => {
+            await this.model.find({tags: tagId}).then((tasks) => {
+                resolve(tasks);
+            }).catch((error) => {
+                reject(error);
+            })
+        });
+
+        return tasks;
+    }
 }
