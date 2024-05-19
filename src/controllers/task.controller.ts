@@ -10,47 +10,47 @@ export class TaskController {
         this.service = new TaskService();
     }
 
-    async findById( req: Request, res: Response) : Promise<void> {
+    async findById( req: Request, res: Response) : Promise<Response<ITask>> {
         const id = req.params.id;
         const task = await this.service.getById(id);
-        res.status(200).json(task);
+        return res.status(200).json(task);
     }
     
-    async create( req: Request, res: Response) : Promise<void> {
+    async create( req: Request, res: Response) : Promise<Response<ITask>> {
         const task: ITask = req.body;
         const newTask = await this.service.create(task);
         console.log(newTask);
-        res.status(201).json(newTask);
+        return res.status(201).json(newTask);
     }
 
-    async update( req: Request, res: Response) : Promise<void> {
+    async update( req: Request, res: Response) : Promise<Response<ITask>> {
         const task: ITask = req.body;
         const id = req.params.id;
         const updatedTask = await this.service.update(id, task);
-        res.status(200).json(updatedTask);
+        return res.status(200).json(updatedTask);
     }
 
-    async delete( req: Request, res: Response) : Promise<void> {
+    async delete( req: Request, res: Response) : Promise<Response<ITask>> {
         const id = req.params.id;
         const deletedTask = await this.service.deleteById(id);
-        res.status(200).json(deletedTask);
+        return res.status(200).json(deletedTask);
     }
 
-    async findAll( req: Request, res: Response) : Promise<void> {
+    async findAll( req: Request, res: Response) : Promise<Response<ITask>> {
         const tasks = await this.service.getAll();
-        res.status(200).json(tasks);
+        return res.status(200).json(tasks);
     }
 
-    async addTagToTask( req: Request, res: Response) : Promise<void> {
+    async addTagToTask( req: Request, res: Response) : Promise<Response<ITask>> {
         const taskId = req.params.taskid;
         const tagId = req.params.tagid;
         const task = await this.service.addTagToTask(taskId, tagId);
-        res.status(200).json(task);
+        return res.status(200).json(task);
     }
 
-    async getTasksByTag( req: Request, res: Response) : Promise<void> {
+    async getTasksByTag( req: Request, res: Response) : Promise<Response<ITask>> {
         const tag = req.params.tagid;
         const tasks = await this.service.getTasksByTag(tag);
-        res.status(200).json(tasks);
+        return res.status(200).json(tasks);
     }
 }
