@@ -1,7 +1,11 @@
+import { TaskService } from "../services/task.service"
 
 export class TaskController {
+
+    private service: TaskService;
+
     constructor() {
-        
+        this.service = new TaskService();
     }
 
     async findById( req: Request, res: Response) : Promise<void> {

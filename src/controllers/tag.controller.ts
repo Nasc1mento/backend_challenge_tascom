@@ -1,6 +1,15 @@
+import { TagService } from "../services/tag.service";
 
 
 export class TagController {
+
+    private service: TagService;
+
+    constructor() {
+        this.service = new TagService();
+    }
+
+
     async findById(req: Request, res: Response): Promise<void> {
        
     }
