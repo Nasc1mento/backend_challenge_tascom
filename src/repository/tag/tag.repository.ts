@@ -1,7 +1,7 @@
 import { Tag } from "../../models/tag/tag.model";
 import { ITag } from "../../models/tag/tag.model.interface";
 import { IRepository } from "../repository.interface";
-import { TagEntity } from "./tag.entity";
+import { TagEntity } from "../../entities/tag.entity";
 
 
 export class TagRepository implements IRepository<ITag>{

@@ -1,4 +1,4 @@
-import { ITask } from "../../models/task/task.model.interface";
+import { ITask } from "../models/task/task.model.interface";
 
 type TaskProps = Pick<ITask, "title" | "status" | "priority" | "description" | "tags">;
 

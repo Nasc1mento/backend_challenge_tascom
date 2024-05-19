@@ -1,7 +1,7 @@
 import { Task } from "../../models/task/task.model";
 import { ITask } from "../../models/task/task.model.interface";
 import { IRepository } from "../repository.interface";
-import { TaskEntity } from "./task.entity";
+import { TaskEntity } from "../../entities/task.entity";
 
 
 export class TaskRepository implements IRepository<ITask>{

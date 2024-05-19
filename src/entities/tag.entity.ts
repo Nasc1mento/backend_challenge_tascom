@@ -1,4 +1,4 @@
-import { ITag } from "../../models/tag/tag.model.interface";
+import { ITag } from "../models/tag/tag.model.interface";
 
 type TagProps = Pick<ITag, "name" | "color">;
 
