@@ -11,19 +11,19 @@ export class TagService {
         this.repository = new TagRepository;
     }
 
-    createTask(tag: ITag) :Promise<ITag> {
+    create(tag: ITag) :Promise<ITag> {
         return this.repository.save(tag);
     }
 
-    getTaskById(id: string): Promise<ITag> {
+    getById(id: string): Promise<ITag> {
         return this.repository.get(id);
     }
 
-    getAllTasks(): Promise<ITag[]> {
+    getAllT(): Promise<ITag[]> {
         return this.repository.getAll();
     }
 
-    updateTask(id: string, tag): Promise<ITag> {
+    update(id: string, tag): Promise<ITag> {
         return this.repository.update(id, tag);
     }
 

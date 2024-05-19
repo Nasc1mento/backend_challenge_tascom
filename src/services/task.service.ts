@@ -9,19 +9,19 @@ export class TaskService {
         this.repository = new TaskRepository;
     }
 
-    createTask(tag: ITask) :Promise<ITask> {
+    create(tag: ITask) :Promise<ITask> {
         return this.repository.save(tag);
     }
 
-    getTaskById(id: string): Promise<ITask> {
+    getById(id: string): Promise<ITask> {
         return this.repository.get(id);
     }
 
-    getAllTasks(): Promise<ITask[]> {
+    getAll(): Promise<ITask[]> {
         return this.repository.getAll();
     }
 
-    updateTask(id: string, tag): Promise<ITask> {
+    update(id: string, tag): Promise<ITask> {
         return this.repository.update(id, tag);
     }
 
