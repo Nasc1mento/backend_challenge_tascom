@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { TagService } from "../services/tag.service";
 import { ITag } from "../models/tag/tag.model.interface";
 
-
 export class TagController {
 
     private service: TagService;
