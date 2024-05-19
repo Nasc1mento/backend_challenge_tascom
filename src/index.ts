@@ -18,7 +18,7 @@ class Server {
         this.configMiddleware();
         this.configRoutes();
 
-        this.app.listen(env.port, () => {
+        this.app.listen(env.APP_PORT, () => {
             console.log("Running");
         });
     }

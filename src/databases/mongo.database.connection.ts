@@ -4,7 +4,7 @@ import { env } from "../env";
 
 export class MongoConnection implements IDatabaseConnection {
     private getUri(): string {
-        return env.databaseURI;
+        return env.APP_DATABASE_URI;
     }
 
     async connect() {
