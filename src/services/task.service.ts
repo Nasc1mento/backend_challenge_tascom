@@ -1,3 +1,4 @@
+import { ITask } from "../models/task/task.model.interface";
 import { TaskRepository } from "../repository/task/task.repository";
 
 
@@ -8,23 +9,23 @@ export class TaskService {
         this.repository = new TaskRepository;
     }
 
-    createTask(tag: ITag) :Promise<ITag> {
+    createTask(tag: ITask) :Promise<ITask> {
         return this.repository.save(tag);
     }
 
-    getTaskById(id: string): Promise<ITag> {
+    getTaskById(id: string): Promise<ITask> {
         return this.repository.get(id);
     }
 
-    getAllTasks(): Promise<ITag[]> {
+    getAllTasks(): Promise<ITask[]> {
         return this.repository.getAll();
     }
 
-    updateTask(id: string, tag): Promise<ITag> {
+    updateTask(id: string, tag): Promise<ITask> {
         return this.repository.update(id, tag);
     }
 
-    deleteById(id: string): Promise<ITag> {
+    deleteById(id: string): Promise<ITask> {
         return this.repository.delete(id);
     }
 }
