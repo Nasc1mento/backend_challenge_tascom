@@ -32,5 +32,13 @@ export class TaskRoutes {
         this.router.delete("/tasks/:id", (req: Request, res: Response) => {
             this.controller.delete(req, res);
         });
+
+        this.router.post("/tasks/:taskid/tag/:tagid", (req: Request, res: Response) => {
+            this.controller.addTagToTask(req, res);
+        });
+
+        this.router.get("/tasks/tag/:tagid", (req: Request, res: Response) => {
+            this.controller.getTasksByTag(req, res);
+        });
     }
 }

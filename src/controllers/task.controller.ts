@@ -42,14 +42,14 @@ export class TaskController {
     }
 
     async addTagToTask( req: Request, res: Response) : Promise<void> {
-        const tag = req.body.tag;
-        const id = req.params.id;
-        const task = await this.service.addTagToTask(id, tag);
+        const taskId = req.params.taskid;
+        const tagId = req.params.tagid;
+        const task = await this.service.addTagToTask(taskId, tagId);
         res.status(200).json(task);
     }
 
     async getTasksByTag( req: Request, res: Response) : Promise<void> {
-        const tag = req.params.tag;
+        const tag = req.params.tagid;
         const tasks = await this.service.getTasksByTag(tag);
         res.status(200).json(tasks);
     }
