@@ -13,6 +13,7 @@ export class TaskRepository implements IRepository<ITask>{
     }
 
     async save(task: ITask): Promise<ITask> {
+        console.log(task);
         const newTask = new Promise<ITask>(async(resolve, reject) => {
             await this.model.create(new TaskEntity(task)).then((task) => {
                 resolve(task);
@@ -20,7 +21,6 @@ export class TaskRepository implements IRepository<ITask>{
                 reject(error);
             })
         });
-
         return newTask;
     }
 

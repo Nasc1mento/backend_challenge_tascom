@@ -11,7 +11,7 @@ export class TagService {
         this.repository = new TagRepository;
     }
 
-    create(tag: ITag) :Promise<ITag> {
+    async create(tag: ITag) :Promise<ITag> {
         return this.repository.save(tag);
     }
 

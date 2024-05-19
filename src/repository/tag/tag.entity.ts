@@ -6,8 +6,8 @@ export class TagEntity {
     id: string;
     name: string;
     color: string;
-
+    
     constructor(props: TagProps) {
-        Object.assign(props);
+        Object.assign(this, props);
     }
 }

@@ -1,17 +1,17 @@
-import {Schema, model} from 'mongoose';
-import { ITask } from './task.model.interface';
+import {Schema, model} from "mongoose";
+import { ITask } from "../../models/task/task.model.interface";
 
-
-export const taskSchema = new Schema<ITask>(
+export const taskSchema = new Schema <ITask>(
     {
         title: {
             type: String,
-            required: true
+            required: true,
         },
         status: {
             type: String,
             enum: ["ongoing", "completed"],
             default: "ongoing",
+            required: true,
         },
         priority: {
             type: Number,
@@ -22,11 +22,12 @@ export const taskSchema = new Schema<ITask>(
         description: {
             type: String,
         },
-        tags: [{
-            type: Schema.Types.ObjectId,
-            ref: "Tag",
-        }]
-    }
-)
+        tags: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Tag",
+            }
+        ]
+    })
 
-export const Task = model<ITask>("Task", taskSchema);
+export const Task = model("Task", taskSchema);

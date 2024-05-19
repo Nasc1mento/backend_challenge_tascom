@@ -9,6 +9,6 @@ export class TaskEntity {
     description: string;
     tags: string[];
     constructor(props: TaskProps) {
-        Object.assign(props);
+        Object.assign(this, props);
     }
 }
