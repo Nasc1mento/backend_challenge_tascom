@@ -9,31 +9,31 @@ export class TaskService {
         this.repository = new TaskRepository;
     }
 
-    create(tag: ITask) :Promise<ITask> {
-        return this.repository.save(tag);
+    async create(tag: ITask) :Promise<ITask> {
+        return await this.repository.save(tag);
     }
 
-    getById(id: string): Promise<ITask> {
-        return this.repository.get(id);
+    async getById(id: string): Promise<ITask> {
+        return await this.repository.get(id);
     }
 
-    getAll(): Promise<ITask[]> {
-        return this.repository.getAll();
+    async getAll(): Promise<ITask[]> {
+        return await this.repository.getAll();
     }
 
-    update(id: string, tag): Promise<ITask> {
-        return this.repository.update(id, tag);
+    async update(id: string, tag): Promise<ITask> {
+        return await this.repository.update(id, tag);
     }
 
-    deleteById(id: string): Promise<ITask> {
-        return this.repository.delete(id);
+    async deleteById(id: string): Promise<ITask> {
+        return await this.repository.delete(id);
     }
 
-    addTagToTask(id: string, tag: string): Promise<ITask> {
-        return this.repository.addTag(id, tag);
+    async addTagToTask(id: string, tag: string): Promise<ITask> {
+        return await this.repository.addTag(id, tag);
     }
 
-    getTasksByTag(tag: string): Promise<ITask[]> {
-        return this.repository.getAllByTag(tag);
+    async getTasksByTag(tag: string): Promise<ITask[]> {
+        return await this.repository.getAllByTag(tag);
     }
 }

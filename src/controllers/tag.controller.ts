@@ -37,7 +37,7 @@ export class TagController {
     } 
     
     async findAll(req: Request, res: Response): Promise<Response<ITag>> {
-        const tags = await this.service.getAllT();
+        const tags = await this.service.getAll();
         return res.status(200).json(tags);
     }
 }

@@ -12,22 +12,22 @@ export class TagService {
     }
 
     async create(tag: ITag) :Promise<ITag> {
-        return this.repository.save(tag);
+        return await this.repository.save(tag);
     }
 
-    getById(id: string): Promise<ITag> {
-        return this.repository.get(id);
+    async getById(id: string): Promise<ITag> {
+        return await this.repository.get(id);
     }
 
-    getAllT(): Promise<ITag[]> {
-        return this.repository.getAll();
+    async getAll(): Promise<ITag[]> {
+        return await this.repository.getAll();
     }
 
-    update(id: string, tag): Promise<ITag> {
-        return this.repository.update(id, tag);
+    async update(id: string, tag): Promise<ITag> {
+        return await this.repository.update(id, tag);
     }
 
-    deleteById(id: string): Promise<ITag> {
-        return this.repository.delete(id);
+    async deleteById(id: string): Promise<ITag> {
+        return await this.repository.delete(id);
     }
 }
