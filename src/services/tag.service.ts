@@ -1,5 +1,5 @@
 import { ITag } from "../models/tag/tag.model.interface";
-import { TagRepository } from "../repository/tag/tag.repository";
+import { TagRepository } from "../repositories/tag";
 
 
 

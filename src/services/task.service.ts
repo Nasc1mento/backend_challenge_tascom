@@ -1,5 +1,5 @@
 import { ITask } from "../models/task/task.model.interface";
-import { TaskRepository } from "../repository/task/task.repository";
+import { TaskRepository } from "../repositories/task";
 
 
 export class TaskService {
