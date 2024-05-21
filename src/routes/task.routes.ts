@@ -20,6 +20,10 @@ export class TaskRoutes {
         this.router.get("/tasks/:id", (req: Request, res: Response) => {
             this.controller.findById(req, res);
         });
+        
+        this.router.get("/tasks/tags/:tagIds", (req: Request, res: Response) => {
+            this.controller.getTasksByTags(req, res);
+        });
 
         this.router.post("/tasks", (req: Request, res: Response) => {
             this.controller.create(req, res);
@@ -29,16 +33,16 @@ export class TaskRoutes {
             this.controller.update(req, res);
         });
 
+        this.router.post("/tasks/:taskId/tags/:tagId", (req: Request, res: Response) => {
+            this.controller.addTagsToTask(req, res);
+        });
+
         this.router.delete("/tasks/:id", (req: Request, res: Response) => {
             this.controller.delete(req, res);
         });
 
-        this.router.post("/tasks/:taskid/tag/:tagid", (req: Request, res: Response) => {
-            this.controller.addTagToTask(req, res);
-        });
-
-        this.router.get("/tasks/tag/:tagid", (req: Request, res: Response) => {
-            this.controller.getTasksByTag(req, res);
-        });
+        this.router.delete("/tasks/:taskId/tags/:tagId", (req: Request, res: Response) => {
+            this.controller.removeTagFromTask(req, res);
+        });  
     }
 }

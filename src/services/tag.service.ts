@@ -23,7 +23,7 @@ export class TagService {
         return await this.repository.getAll();
     }
 
-    async update(id: string, tag): Promise<ITag> {
+    async update(id: string, tag: ITag): Promise<ITag> {
         return await this.repository.update(id, tag);
     }
 

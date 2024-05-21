@@ -1,11 +1,10 @@
 import { Tag } from "../../models/tag/tag.model";
 import { ITag } from "../../models/tag/tag.model.interface";
-import { IRepository } from "../repository.interface";
 import { TagEntity } from "../../entities/tag.entity";
+import { ITagRepository } from "./tag.repository.interface";
 
 
-export class TagRepository implements IRepository<ITag>{
-
+export class TagRepository implements ITagRepository {
     private model: typeof Tag;
 
     constructor() {

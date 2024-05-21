@@ -10,6 +10,13 @@ export class Routes {
     }
 
     init(): void {
+
+        this.routes.get("/", (req: Request, res: Response) => {
+            res.send({
+                message: "Welcome to the TODO API"
+            });
+        });
+
         this.setRoutes();
         return this.routes;
     }

@@ -41,16 +41,23 @@ export class TaskController {
         return res.status(200).json(tasks);
     }
 
-    async addTagToTask( req: Request, res: Response) : Promise<Response<ITask>> {
-        const taskId = req.params.taskid;
-        const tagId = req.params.tagid;
+    async addTagsToTask( req: Request, res: Response) : Promise<Response<ITask>> {
+        const taskId: string = req.params.taskId;
+        const tagId: string = req.params.tagId;
         const task = await this.service.addTagToTask(taskId, tagId);
         return res.status(200).json(task);
     }
 
-    async getTasksByTag( req: Request, res: Response) : Promise<Response<ITask>> {
-        const tag = req.params.tagid;
-        const tasks = await this.service.getTasksByTag(tag);
+    async removeTagFromTask( req: Request, res: Response) : Promise<Response<ITask>> {
+        const taskId = req.params.taskId;
+        const tagId = req.params.tagId;
+        const task = await this.service.removeTagFromTask(taskId, tagId);
+        return res.status(200).json(task);
+    }
+
+    async getTasksByTags( req: Request, res: Response) : Promise<Response<ITask>> {
+        const tags = req.params.tagIds.split(",");
+        const tasks = await this.service.getTasksByTags(tags);
         return res.status(200).json(tasks);
     }
 }

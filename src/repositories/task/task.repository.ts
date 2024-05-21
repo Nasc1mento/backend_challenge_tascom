@@ -1,10 +1,10 @@
 import { Task } from "../../models/task/task.model";
 import { ITask } from "../../models/task/task.model.interface";
-import { IRepository } from "../repository.interface";
 import { TaskEntity } from "../../entities/task.entity";
+import { ITaskRepository } from "./task.repository.interface";
 
 
-export class TaskRepository implements IRepository<ITask>{
+export class TaskRepository implements ITaskRepository {
 
     private model: typeof Task;
 
@@ -13,7 +13,6 @@ export class TaskRepository implements IRepository<ITask>{
     }
 
     async save(task: ITask): Promise<ITask> {
-        console.log(task);
         const newTask = new Promise<ITask>(async(resolve, reject) => {
             await this.model.create(new TaskEntity(task)).then((task) => {
                 resolve(task);
@@ -32,7 +31,6 @@ export class TaskRepository implements IRepository<ITask>{
                 reject(error);
             })
         });
-
         return tasksCollected;
     }
 
@@ -83,15 +81,26 @@ export class TaskRepository implements IRepository<ITask>{
         return task;
     }
 
-    async getAllByTag(tagId: string): Promise<ITask[]> {
-        const tasks = new Promise<ITask[]>(async(resolve, reject) => {
-            await this.model.find({tags: tagId}).populate("tags").then((tasks) => {
-                resolve(tasks);
+    async removeTag(taskId: string, tagId: string): Promise<ITask> {
+        const task = new Promise<ITask>(async(resolve, reject) => {
+            await this.model.findByIdAndUpdate(taskId, {$pull: {tags: tagId}}, {new: true}).then((task) => {
+                resolve(task);
             }).catch((error) => {
+                reject(error);
+            });
+        });
+        return task;
+    }
+    
+    async getAllByTags(tagIds: string[]): Promise<ITask[]> {
+        const tasks = new Promise<ITask[]>(async(resolve, reject) => {
+            await this.model.find({tags: {$in: tagIds}}).then((tasks) => {
+                resolve(tasks);
+            }
+            ).catch((error) => {
                 reject(error);
             })
         });
-
         return tasks;
     }
 }

@@ -21,7 +21,7 @@ export class TaskService {
         return await this.repository.getAll();
     }
 
-    async update(id: string, tag): Promise<ITask> {
+    async update(id: string, tag: ITask): Promise<ITask> {
         return await this.repository.update(id, tag);
     }
 
@@ -29,11 +29,15 @@ export class TaskService {
         return await this.repository.delete(id);
     }
 
-    async addTagToTask(id: string, tag: string): Promise<ITask> {
-        return await this.repository.addTag(id, tag);
+    async addTagToTask(taskId: string, tagId: string): Promise<ITask> {
+        return await this.repository.addTag(taskId, tagId);
     }
 
-    async getTasksByTag(tag: string): Promise<ITask[]> {
-        return await this.repository.getAllByTag(tag);
+    async removeTagFromTask(id: string, tag: string): Promise<ITask> {
+        return await this.repository.removeTag(id, tag);
+    }
+
+    async getTasksByTags(tagIds: string[]): Promise<ITask[]> {
+        return await this.repository.getAllByTags(tagIds);
     }
 }
