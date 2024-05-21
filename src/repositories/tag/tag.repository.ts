@@ -23,7 +23,7 @@ export class TagRepository implements ITagRepository {
     }
 
     async getAll(): Promise<ITag[]> {
-        const collectedTags = new Promise<ITag[]> (async(resolve, reject) => {
+        const collectedTags = new Promise<ITag[]>(async(resolve, reject) => {
             await this.model.find().then((tags) => {
                 resolve(tags);
             }).catch((error) => reject(error));
@@ -45,7 +45,7 @@ export class TagRepository implements ITagRepository {
     }
 
     async delete(id: string): Promise<ITag> {
-        const deletedTag = new Promise<ITag> (async(resolve, reject) => {
+        const deletedTag = new Promise<ITag>(async(resolve, reject) => {
             await this.model.findByIdAndDelete(id).then((tag) => {
                 resolve(tag);
             }).catch((err) => {

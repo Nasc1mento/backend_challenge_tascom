@@ -1,14 +1,17 @@
 import { ITag } from "../models/tag/tag.model.interface";
 import { TagRepository } from "../repositories/tag";
+import { TaskRepository } from "../repositories/task";
 
 
 
 export class TagService {
 
     private repository: TagRepository;
+    private taskRepository: TaskRepository;
 
     constructor() {
         this.repository = new TagRepository;
+        this.taskRepository = new TaskRepository;
     }
 
     async create(tag: ITag) :Promise<ITag> {
@@ -28,6 +31,7 @@ export class TagService {
     }
 
     async deleteById(id: string): Promise<ITag> {
-        return await this.repository.delete(id);
+        this.taskRepository.removeTagFromAllTasks(id);
+        return this.repository.delete(id);
     }
 }
