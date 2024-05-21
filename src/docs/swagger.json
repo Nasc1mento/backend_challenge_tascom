@@ -13,28 +13,38 @@
   "paths": {
     "/": {
       "get": {
-        "description": "",
+        "description": "Check if the API is running",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Hello world"
           }
         }
       }
     },
     "/tags": {
       "get": {
-        "description": "",
+        "description": "Get all tags",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TagDTO"
+              }
+            }
+            
           }
         }
       },
       "post": {
-        "description": "",
+        "description": "Add Tag",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TagDTO"
+            }
           }
         }
       }
@@ -51,8 +61,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TagDTO"
+            }
           }
         }
       },
@@ -64,16 +77,26 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "tag",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTagDTO"
+            }
           }
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TagDTO"
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "description": "Delete tag and return",
         "parameters": [
           {
             "name": "id",
@@ -84,32 +107,50 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TagDTO"
+            }
           }
         }
       }
     },
     "/tasks": {
       "get": {
-        "description": "",
+        "description": "Get all tasks",
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
         }
       },
       "post": {
-        "description": "",
+        "description": "Create task",
+        "parameters": [
+          {
+            "name": "task",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTaskDTO"
+            }
+          }
+        ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
         }
       }
     },
     "/tasks/{id}": {
       "get": {
-        "description": "",
+        "description": "Get task",
         "parameters": [
           {
             "name": "id",
@@ -120,13 +161,23 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
         }
       },
       "put": {
-        "description": "",
+        "description": "Update task",
         "parameters": [
+          {
+            "name": "task",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateTaskDTO"
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -136,12 +187,15 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "description": "Delete task",
         "parameters": [
           {
             "name": "id",
@@ -152,14 +206,17 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
         }
       }
     },
     "/tasks/tags/{tagIds}": {
       "get": {
-        "description": "",
+        "description": "Get task by tag",
         "parameters": [
           {
             "name": "tagIds",
@@ -170,14 +227,17 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
         }
       }
     },
     "/tasks/{taskId}/tags/{tagId}": {
       "post": {
-        "description": "",
+        "description": "Add tag to task",
         "parameters": [
           {
             "name": "taskId",
@@ -194,12 +254,15 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "description": "Remove tag from task",
         "parameters": [
           {
             "name": "taskId",
@@ -216,8 +279,128 @@
         ],
         "responses": {
           "default": {
-            "description": ""
+            "200": "Ok",
+            "schema": {
+              "$ref": "#/definitions/TaskDTO"
+            }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateTaskDTO": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "My title",
+          "required": false
+        },
+        "status": {
+          "type": "string",
+          "example": "ongoing"
+        },
+        "priority": {
+          "type": "number",
+          "example": "8"
+        },
+        "description": {
+          "type": "My description",
+          "example": "My description"
+        }
+      }
+    },
+    "TaskDTO": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "664993835bd26a29a33e3a43"
+        },
+        "title": {
+          "type": "string",
+          "example": "My title"
+        },
+        "status": {
+          "type": "string",
+          "example": "completed"
+        },
+        "priority": {
+          "type": "string",
+          "example": "8"
+        },
+        "description": {
+          "type": "string",
+          "example": "My description"
+        },
+        "tags": {
+          "type": "array",
+          "example": "[664cca3c50e95073fa24c048, 664cca3c50e95073fa24c049]"
+        }
+      }
+    },
+    "UpdateTaskDTO": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "My title"
+        },
+        "status": {
+          "type": "string",
+          "example": "completed"
+        },
+        "priority": {
+          "type": "string",
+          "example": "8"
+        },
+        "description": {
+          "type": "string",
+          "example": "My description"
+        }
+      }
+    },
+    "TagDTO": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "664993835bd26a29a33e3a43"
+        },
+        "name": {
+          "type": "string",
+          "example": "My name"
+        },
+        "color": {
+          "type": "string",
+          "example": "My color"
+        }
+      }
+    },
+    "CreateTagDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "My name"
+        },
+        "color": {
+          "type": "string",
+          "example": "My color"
+        }
+      }
+    },
+    "UpdateTagDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "My name"
+        },
+        "color": {
+          "type": "string",
+          "example": "My color"
         }
       }
     }

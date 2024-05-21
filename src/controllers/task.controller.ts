@@ -18,7 +18,7 @@ export class TaskController {
             const task: TaskDTO = await this.service.getById(id);
             return res.status(200).json(task);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
     
@@ -26,9 +26,9 @@ export class TaskController {
         try {
             const task: CreateTaskDTO = req.body;
             const newTask: TaskDTO = await this.service.create(task);
-            return res.status(201).json(newTask);
+            return res.status(200).json(newTask);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -39,7 +39,7 @@ export class TaskController {
             const updatedTask = await this.service.update(id, task);
             return res.status(200).json(updatedTask);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -49,7 +49,7 @@ export class TaskController {
             const deletedTask = await this.service.deleteById(id);
             return res.status(200).json(deletedTask);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -58,7 +58,7 @@ export class TaskController {
             const tasks:TaskDTO[]  = await this.service.getAll();
             return res.status(200).json(tasks);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -69,7 +69,7 @@ export class TaskController {
             const task: TaskDTO = await this.service.addTagToTask(taskId, tagId);
             return res.status(200).json(task);
         } catch (error) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -80,7 +80,7 @@ export class TaskController {
             const task: TaskDTO = await this.service.removeTagFromTask(taskId, tagId);
             return res.status(200).json(task);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -90,7 +90,7 @@ export class TaskController {
             const tasks: TaskDTO[] = await this.service.getTasksByTags(tags);
             return res.status(200).json(tasks);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 }

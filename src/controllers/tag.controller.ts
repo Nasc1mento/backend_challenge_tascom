@@ -24,9 +24,9 @@ export class TagController {
         try {
             const tag: ITag = req.body;
             const newTag = await this.service.create(tag);
-            return res.status(201).json(newTag);
+            return res.status(200).json(newTag);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -37,7 +37,7 @@ export class TagController {
             const updatedTag = await this.service.update(id, tag);
             return res.status(200).json(updatedTag);
         } catch(error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 
@@ -47,7 +47,7 @@ export class TagController {
             const deletedTag = await this.service.deleteById(id);
             return res.status(200).json(deletedTag);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     } 
     
@@ -56,7 +56,7 @@ export class TagController {
             const tags = await this.service.getAll();
             return res.status(200).json(tags);
         } catch (error: any) {
-            return res.status(400).json({message: error.message});
+            return res.status(500).json({message: error.message});
         }
     }
 }
