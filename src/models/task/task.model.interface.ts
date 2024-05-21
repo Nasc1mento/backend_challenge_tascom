@@ -1,7 +1,7 @@
 export interface ITask {
     title: string;
-    status: string;
+    status: "ongoing" | "completed",
     priority: number;
     description: string;
-    tags: string[];
+    tags: any[];
 }

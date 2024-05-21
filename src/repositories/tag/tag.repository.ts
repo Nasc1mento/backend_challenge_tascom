@@ -1,6 +1,8 @@
+import { CreateTagDTO } from "../../dto/tag/create.tag.dto";
+import { UpdateTagDto } from "../../dto/tag/update.tag.dto";
+import { TaskDTO } from "../../dto/task/task.dto";
 import { Tag } from "../../models/tag/tag.model";
 import { ITag } from "../../models/tag/tag.model.interface";
-import { TagEntity } from "../../entities/tag.entity";
 import { ITagRepository } from "./tag.repository.interface";
 
 
@@ -12,25 +14,25 @@ export class TagRepository implements ITagRepository {
         this.model = Tag;
     }
 
-    async save(tag: ITag): Promise<ITag> {
-        return new Promise<ITag>(async(resolve, reject) => {
-            await this.model.create(new TagEntity(tag))
+    async save(tag: CreateTagDTO): Promise<TaskDTO> {
+        return new Promise<TaskDTO>(async(resolve, reject) => {
+            await this.model.create(tag)
             .then((tag) => {
                 resolve(tag);
             }).catch((err) => reject(err));
         });
     }
 
-    async getAll(): Promise<ITag[]> {
-        return new Promise<ITag[]>(async(resolve, reject) => {
+    async getAll(): Promise<TaskDTO[]> {
+        return new Promise<TaskDTO[]>(async(resolve, reject) => {
             await this.model.find().then((tags) => {
                 resolve(tags);
             }).catch((error) => reject(error));
         });
     }
 
-    async update(id: string, tag: ITag): Promise<ITag> {
-        return new Promise<ITag>(async(resolve, reject) => {
+    async update(id: string, tag: UpdateTagDto): Promise<TaskDTO> {
+        return new Promise<TaskDTO>(async(resolve, reject) => {
             await this.model.findByIdAndUpdate(id, tag, {new: true}).then((tag) => {
                 resolve(tag);
             }).catch((error) => {
@@ -39,8 +41,8 @@ export class TagRepository implements ITagRepository {
         });
     }
 
-    async delete(id: string): Promise<ITag> {
-        return new Promise<ITag>(async(resolve, reject) => {
+    async delete(id: string): Promise<TaskDTO> {
+        return new Promise<TaskDTO>(async(resolve, reject) => {
             await this.model.findByIdAndDelete(id).then((tag) => {
                 resolve(tag);
             }).catch((err) => {
@@ -49,8 +51,8 @@ export class TagRepository implements ITagRepository {
         });
     }
 
-    async get(id: string): Promise<ITag> {
-        return new Promise<ITag>(async(resolve, reject) => {
+    async get(id: string): Promise<TaskDTO> {
+        return new Promise<TaskDTO>(async(resolve, reject) => {
             await this.model.findById(id).then((task) => {
                 resolve(task);
             }).catch((error) => {
