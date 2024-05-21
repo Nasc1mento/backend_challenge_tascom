@@ -4,7 +4,7 @@ import { TaskRepository } from "../repositories/task";
 
 
 export class TaskService {
-    
+
     private taskRepository: TaskRepository;
     private tagRepository: TagRepository;
 
@@ -35,7 +35,12 @@ export class TaskService {
 
     async addTagToTask(taskId: string, tagId: string): Promise<ITask> {
         const tag = await this.tagRepository.get(tagId);
-        return tag ? await this.taskRepository.addTag(taskId, tagId) : null;
+        if (!tag) {
+            throw new Error("Tag not found");
+        }
+        
+        return await this.taskRepository.addTag(taskId, tagId);
+            
     }
 
     async removeTagFromTask(id: string, tag: string): Promise<ITask> {
