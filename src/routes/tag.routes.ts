@@ -2,6 +2,7 @@ import {Router, Request, Response} from "express";
 import { TagController } from "../controllers/tag.controller";
 
 export class TagRoutes {
+    
     private routes: Router;
     private controller: TagController;
 

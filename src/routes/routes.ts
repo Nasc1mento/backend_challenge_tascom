@@ -3,6 +3,7 @@ import { TagRoutes } from "./tag.routes";
 import { TaskRoutes } from "./task.routes";
 
 export class Routes {
+    
     private routes: Router;
 
     constructor () {

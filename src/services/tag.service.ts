@@ -3,35 +3,34 @@ import { TagRepository } from "../repositories/tag";
 import { TaskRepository } from "../repositories/task";
 
 
-
 export class TagService {
 
-    private repository: TagRepository;
+    private tagRepository: TagRepository;
     private taskRepository: TaskRepository;
 
     constructor() {
-        this.repository = new TagRepository;
+        this.tagRepository = new TagRepository;
         this.taskRepository = new TaskRepository;
     }
 
     async create(tag: ITag) :Promise<ITag> {
-        return await this.repository.save(tag);
+        return await this.tagRepository.save(tag);
     }
 
     async getById(id: string): Promise<ITag> {
-        return await this.repository.get(id);
+        return await this.tagRepository.get(id);
     }
 
     async getAll(): Promise<ITag[]> {
-        return await this.repository.getAll();
+        return await this.tagRepository.getAll();
     }
 
     async update(id: string, tag: ITag): Promise<ITag> {
-        return await this.repository.update(id, tag);
+        return await this.tagRepository.update(id, tag);
     }
 
     async deleteById(id: string): Promise<ITag> {
         this.taskRepository.removeTagFromAllTasks(id);
-        return this.repository.delete(id);
+        return this.tagRepository.delete(id);
     }
 }

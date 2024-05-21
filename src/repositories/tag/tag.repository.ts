@@ -5,6 +5,7 @@ import { ITagRepository } from "./tag.repository.interface";
 
 
 export class TagRepository implements ITagRepository {
+    
     private model: typeof Tag;
 
     constructor() {
