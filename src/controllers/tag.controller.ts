@@ -11,32 +11,52 @@ export class TagController {
     }
 
     async findById(req: Request, res: Response): Promise<Response<ITag>> {
-        const id = req.params.id;
-        const tag = await this.service.getById(id);
-        return res.status(200).json(tag);  
+        try {
+            const id = req.params.id;
+            const tag = await this.service.getById(id);
+            return res.status(200).json(tag); 
+        } catch (error: any) {
+            return res.status(404).json({message: error.message});
+        }
     }
 
     async create(req: Request, res: Response): Promise<Response<ITag>> {
-        const tag: ITag = req.body;
-        const newTag = await this.service.create(tag);
-        return res.status(201).json(newTag);
+        try {
+            const tag: ITag = req.body;
+            const newTag = await this.service.create(tag);
+            return res.status(201).json(newTag);
+        } catch (error: any) {
+            return res.status(400).json({message: error.message});
+        }
     }
 
     async update(req: Request, res: Response): Promise<Response<ITag>> {
-        const tag: ITag = req.body;
-        const id = req.params.id;
-        const updatedTag = await this.service.update(id, tag);
-        return res.status(200).json(updatedTag);
+        try {
+            const tag: ITag = req.body;
+            const id = req.params.id;
+            const updatedTag = await this.service.update(id, tag);
+            return res.status(200).json(updatedTag);
+        } catch(error: any) {
+            return res.status(400).json({message: error.message});
+        }
     }
 
     async deleteById(req: Request, res: Response): Promise<Response<ITag>> {
-        const id = req.params.id;
-        const deletedTag = await this.service.deleteById(id);
-        return res.status(200).json(deletedTag);
+        try {
+            const id = req.params.id;
+            const deletedTag = await this.service.deleteById(id);
+            return res.status(200).json(deletedTag);
+        } catch (error: any) {
+            return res.status(400).json({message: error.message});
+        }
     } 
     
     async findAll(req: Request, res: Response): Promise<Response<ITag>> {
-        const tags = await this.service.getAll();
-        return res.status(200).json(tags);
+        try {
+            const tags = await this.service.getAll();
+            return res.status(200).json(tags);
+        } catch (error: any) {
+            return res.status(400).json({message: error.message});
+        }
     }
 }
