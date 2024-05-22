@@ -295,7 +295,32 @@
           }
         }
       }
+    },
+    "tasks/{taskId}/tags": {
+      "get": {
+        "description": "Get tags from task",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "200": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TagDTO"
+              }
+            }
+          }
+        }
+      }
     }
+
   },
   "definitions": {
     "CreateTaskDTO": {
