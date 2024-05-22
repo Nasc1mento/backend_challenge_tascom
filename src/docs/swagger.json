@@ -13,6 +13,9 @@
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "Hello"
+        ],
         "description": "Check if the API is running",
         "responses": {
           "200": {
@@ -23,6 +26,9 @@
     },
     "/tags": {
       "get": {
+        "tags": [
+          "Tags"
+        ],
         "description": "Get all tags",
         "responses": {
           "200": {
@@ -38,6 +44,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Tags"
+        ],
         "description": "Add Tag",
         "parameters": [
           {
@@ -60,6 +69,9 @@
     },
     "/tags/{id}": {
       "get": {
+        "tags": [
+          "Tags"
+        ],
         "description": "",
         "parameters": [
           {
@@ -79,6 +91,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Tags"
+        ],
         "description": "",
         "parameters": [
           {
@@ -105,6 +120,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Tags"
+        ],
         "description": "Delete tag and return",
         "parameters": [
           {
@@ -126,6 +144,9 @@
     },
     "/tasks": {
       "get": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Get all tasks",
         "responses": {
           "default": {
@@ -137,6 +158,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Create task",
         "parameters": [
           {
@@ -159,6 +183,9 @@
     },
     "/tasks/{id}": {
       "get": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Get task",
         "parameters": [
           {
@@ -178,6 +205,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Update task",
         "parameters": [
           {
@@ -204,6 +234,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Delete task",
         "parameters": [
           {
@@ -225,6 +258,9 @@
     },
     "/tasks/tags/{tagIds}": {
       "get": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Get task by tag",
         "parameters": [
           {
@@ -246,6 +282,9 @@
     },
     "/tasks/{taskId}/tags/{tagId}": {
       "post": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Add tag to task",
         "parameters": [
           {
@@ -271,6 +310,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Remove tag from task",
         "parameters": [
           {
@@ -298,6 +340,9 @@
     },
     "tasks/{taskId}/tags": {
       "get": {
+        "tags": [
+          "Tasks"
+        ],
         "description": "Get tags from task",
         "parameters": [
           {
