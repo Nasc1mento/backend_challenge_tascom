@@ -102,4 +102,14 @@ export class TaskRepository implements ITaskRepository {
             });
         });
     }
+
+    async getAllTags(taskId: string): Promise<TaskDTO> {
+        return new Promise<TaskDTO>(async(resolve, reject) => {
+            await this.model.findById(taskId).populate("tags").then((task) => {
+                resolve(task);
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    }
 }

@@ -94,4 +94,14 @@ export class TaskController {
             apiErrorHandler(error, req, res, "Fetching tasks by tags failed");
         }
     }
+
+    async getTagsFromTask(req: Request, res: Response) : Promise<Response<TaskDTO>> {
+        try {
+            const taskId = req.params.id;
+            const task: TaskDTO = await this.service.getTagsByTask(taskId);
+            return res.status(200).json(task.tags);
+        } catch (error: any) {
+            apiErrorHandler(error, req, res, "Fetching tags from task failed");
+        }
+    }
 }

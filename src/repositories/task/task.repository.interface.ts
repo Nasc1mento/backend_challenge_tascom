@@ -6,4 +6,5 @@ export interface ITaskRepository extends IRepository<TaskDTO> {
     removeTag(taskId: string, tagId: string): Promise<TaskDTO>;
     removeTagFromAllTasks(tagId: string): Promise<any>;
     getAllByTags(tagIds: string[]): Promise<TaskDTO[]>;
+    getAllTags(tagId: string): Promise<TaskDTO>;
 }

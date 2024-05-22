@@ -43,6 +43,10 @@ export class TaskRoutes {
 
         this.router.delete("/tasks/:taskId/tags/:tagId", (req: Request, res: Response) => {
             this.controller.removeTagFromTask(req, res);
-        });  
+        });
+        
+        this.router.get("/tasks/:id/tags", (req: Request, res: Response) => {
+            this.controller.getTagsFromTask(req, res);
+        });
     }
 }

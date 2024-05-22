@@ -52,4 +52,8 @@ export class TaskService {
     async getTasksByTags(tagIds: string[]): Promise<TaskDTO[]> {
         return await this.taskRepository.getAllByTags(tagIds);
     }
+
+    async getTagsByTask(taskId: string): Promise<TaskDTO> {
+        return await this.taskRepository.getAllTags(taskId);
+    }
 }
