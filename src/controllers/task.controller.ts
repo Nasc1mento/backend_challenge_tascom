@@ -1,8 +1,9 @@
 import { CreateTaskDTO } from "../dto/task/create.task.dto";
 import { TaskDTO } from "../dto/task/task.dto";
 import { UpdateTaskDTO } from "../dto/task/update.task.dto";
+import { apiErrorHandler } from "../utils/api.error.handler";
 import { TaskService } from "../services/task.service"
-import { Request, Response, Next } from "express";
+import { Request, Response } from "express";
 
 export class TaskController {
 
@@ -18,7 +19,7 @@ export class TaskController {
             const task: TaskDTO = await this.service.getById(id);
             return res.status(200).json(task);
         } catch (error: any) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Fetching task failed");
         }
     }
     
@@ -28,7 +29,7 @@ export class TaskController {
             const newTask: TaskDTO = await this.service.create(task);
             return res.status(200).json(newTask);
         } catch (error: any) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Creating task failed");
         }
     }
 
@@ -39,7 +40,7 @@ export class TaskController {
             const updatedTask = await this.service.update(id, task);
             return res.status(200).json(updatedTask);
         } catch (error: any) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Updating task failed");
         }
     }
 
@@ -49,7 +50,7 @@ export class TaskController {
             const deletedTask = await this.service.deleteById(id);
             return res.status(200).json(deletedTask);
         } catch (error: any) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Deleting task failed");
         }
     }
 
@@ -58,7 +59,7 @@ export class TaskController {
             const tasks:TaskDTO[]  = await this.service.getAll();
             return res.status(200).json(tasks);
         } catch (error: any) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Fetching tasks failed");
         }
     }
 
@@ -69,7 +70,7 @@ export class TaskController {
             const task: TaskDTO = await this.service.addTagToTask(taskId, tagId);
             return res.status(200).json(task);
         } catch (error) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Adding tag to task failed");
         }
     }
 
@@ -80,7 +81,7 @@ export class TaskController {
             const task: TaskDTO = await this.service.removeTagFromTask(taskId, tagId);
             return res.status(200).json(task);
         } catch (error: any) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Removing tag from task failed");
         }
     }
 
@@ -90,7 +91,7 @@ export class TaskController {
             const tasks: TaskDTO[] = await this.service.getTasksByTags(tags);
             return res.status(200).json(tasks);
         } catch (error: any) {
-            return res.status(500).json({message: error.message});
+            apiErrorHandler(error, req, res, "Fetching tasks by tags failed");
         }
     }
 }

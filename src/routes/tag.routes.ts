@@ -1,4 +1,4 @@
-import {Router, Request, Response} from "express"; 
+import {Router, Request, Response, Next} from "express"; 
 import { TagController } from "../controllers/tag.controller";
 
 export class TagRoutes {
