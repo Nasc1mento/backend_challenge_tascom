@@ -1,6 +1,6 @@
-import { CreateTaskDTO } from "../dto/task/create.task.dto";
+import { CreateTaskDTO, createTaskDTOSchema } from "../dto/task/create.task.dto";
 import { TaskDTO } from "../dto/task/task.dto";
-import { UpdateTaskDTO } from "../dto/task/update.task.dto";
+import { UpdateTaskDTO, updateTaskDTOSchema } from "../dto/task/update.task.dto";
 import { apiErrorHandler } from "../utils/api.error.handler";
 import { TaskService } from "../services/task.service"
 import { Request, Response } from "express";
@@ -25,7 +25,7 @@ export class TaskController {
     
     async create(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
-            const task: CreateTaskDTO = req.body;
+            const task: CreateTaskDTO = createTaskDTOSchema.parse(req.body);
             const newTask: TaskDTO = await this.service.create(task);
             return res.status(200).json(newTask);
         } catch (error: any) {
@@ -35,7 +35,7 @@ export class TaskController {
 
     async update(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
-            const task: UpdateTaskDTO = req.body;
+            const task: UpdateTaskDTO = updateTaskDTOSchema.parse(req.body);
             const id = req.params.id;
             const updatedTask = await this.service.update(id, task);
             return res.status(200).json(updatedTask);
@@ -47,7 +47,7 @@ export class TaskController {
     async delete(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const id = req.params.id;
-            const deletedTask = await this.service.deleteById(id);
+            const deletedTask: TaskDTO = await this.service.deleteById(id);
             return res.status(200).json(deletedTask);
         } catch (error: any) {
             apiErrorHandler(error, req, res, "Deleting task failed");

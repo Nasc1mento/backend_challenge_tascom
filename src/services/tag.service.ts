@@ -1,7 +1,6 @@
 import { CreateTagDTO } from "../dto/tag/create.tag.dto";
 import { TagDTO } from "../dto/tag/tag.dto";
 import { UpdateTagDto } from "../dto/tag/update.tag.dto";
-import { ITag } from "../models/tag/tag.model.interface";
 import { TagRepository } from "../repositories/tag";
 import { TaskRepository } from "../repositories/task";
 

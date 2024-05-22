@@ -1,8 +1,9 @@
 import { Request, Response, Next } from "express";
 import { TagService } from "../services/tag.service";
 import { TagDTO } from "../dto/tag/tag.dto";
-import { CreateTagDTO, createTagDTO } from "../dto/tag/create.tag.dto";
+import { CreateTagDTO, createTagDTOSchema } from "../dto/tag/create.tag.dto";
 import { apiErrorHandler } from "../utils/api.error.handler";
+import { UpdateTagDto, updateTagDTOSchema } from "../dto/tag/update.tag.dto";
 
 export class TagController {
 
@@ -24,7 +25,7 @@ export class TagController {
 
     async create(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const tag: CreateTagDTO = createTagDTO.parse(req.body);
+            const tag: CreateTagDTO = createTagDTOSchema.parse(req.body);
             const newTag: TagDTO = await this.service.create(tag);
             return res.status(200).json(newTag);
         } catch (error: any) {
@@ -34,7 +35,7 @@ export class TagController {
 
     async update(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const tag: TagDTO = req.body;
+            const tag: UpdateTagDto = updateTagDTOSchema.parse(req.body);
             const id = req.params.id;
             const updatedTag: TagDTO = await this.service.update(id, tag);
             return res.status(200).json(updatedTag);
