@@ -11,16 +11,16 @@ O projeto consiste em uma API RESTful que permite a criação, listagem, atualiz
 ```
 /
   /src
-  |__/controllers
-  |__/databases
-  |__/docs
-  |__/dto
-  |__/env
-  |__/models
-  |__/repositories
-  |__/routes
-  |__/services
-  |__/repository
+  |__/controllers       # Controladores da API    
+  |__/databases         # Configuração do banco de dados
+  |__/docs              # Documentação da API
+  |__/dto               # Objetos de entrada e saída
+  |__/env               # Variáveis de ambiente
+  |__/models            # Modelos de dados
+  |__/repositories      # Camada de acesso a dados
+  |__/routes            # Endpoints da API
+  |__/services          # Regras de negócio
+  |__/utils             # Funções utilitárias
 /
 ```
 ## Utilização
@@ -30,21 +30,17 @@ O projeto consiste em uma API RESTful que permite a criação, listagem, atualiz
 - Node
 - MongoDB (local ou remoto)
 
-### Instalação
+### Execução local
 
 1. Clone o repositório
 2. Instale as dependências com `npm install`
-3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente.<br> 
-Exemplo:
-```
-PORT=8080
-MONGO_URL={Sua URL do MongoDB}
-```
-4. Inicie o servidor com `npm start` ou `npm run start:dev` para iniciar o servidor em modo de desenvolvimento
+3. Crie um arquivo `.env` na raiz do projeto com as variáveis de ambiente presentes no arquivo `.env.example`
+
+4. Inicie o servidor com `npm run start`. Caso prefira, use `npm run start:dev` para iniciar o servidor em modo de desenvolvimento
 
 ### Documentação
 
 A documentação da API foi feita com o Swagger e pode ser acessada em `http://localhost:8080/docs`
 
-### Licença
+## Licença
 [MIT](https://github.com/Nasc1mento/backend_challenge_tascom/blob/main/LICENSE)
