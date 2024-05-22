@@ -27,7 +27,12 @@ export const taskSchema = new Schema <ITask>(
                 type: Schema.Types.ObjectId,
                 ref: "Tag",
             }
-        ]
+        ],
+        user:{
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        }
     })
 
 export const Task = model("Task", taskSchema);

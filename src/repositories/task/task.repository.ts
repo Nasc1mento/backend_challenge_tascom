@@ -14,102 +14,42 @@ export class TaskRepository implements ITaskRepository {
     }
 
     async save(task: CreateTaskDTO): Promise<TaskDTO> {
-        return new Promise<TaskDTO>(async(resolve, reject) => {
-            await this.model.create(task).then((task) => {
-                resolve(task);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+        return this.model.create(task);
     }
 
-    async getAll(): Promise<TaskDTO[]> {
-        return new Promise<TaskDTO[]>(async(resolve, reject) => {
-            await this.model.find().then((tasks) => {
-                resolve(tasks);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+    async getAll(userId: string): Promise<TaskDTO[]> {
+        return this.model.find({user: userId});
     }
 
-    async update(id: string, task: UpdateTaskDTO): Promise<TaskDTO> {
-        return new Promise<TaskDTO>(async (resolve, reject) => {
-            await this.model.findByIdAndUpdate(id, task, {new: true}).then((task) => {
-                    resolve(task);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+    async update(taskId: string, task: UpdateTaskDTO): Promise<TaskDTO> {
+        return this.model.findByIdAndUpdate(taskId, task, {new: true});
     }
 
     async delete(id: string): Promise<TaskDTO> {
-        return new Promise<TaskDTO>(async(resolve, reject) => {
-            this.model.findByIdAndDelete(id).then((task) => {
-                resolve(task)
-            }).catch((error) => {
-                reject(error);
-            })
-        });
+        return this.model.findByIdAndDelete(id);
     }
 
     async get(id: string): Promise<TaskDTO> {
-        return new Promise<TaskDTO>(async(resolve, reject) => {
-            await this.model.findById(id).then((task) => {
-                resolve(task);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+        return this.model.findById(id);
     }
 
     async addTag(taskId: string, tagId: string): Promise<TaskDTO> {
-        return new Promise<TaskDTO>(async(resolve, reject) => {
-            await this.model.findByIdAndUpdate(taskId, {$addToSet: {tags: tagId}}, {new: true}).then((task) => {
-                resolve(task);
-            }).catch((error) => {
-                reject(error);
-            })
-        });
+        return this.model.findByIdAndUpdate(taskId, {$addToSet: {tags: tagId}}, {new: true});
     }
 
     async removeTag(taskId: string, tagId: string): Promise<TaskDTO> {
-        return new Promise<TaskDTO>(async(resolve, reject) => {
-            await this.model.findByIdAndUpdate(taskId, {$pull: {tags: tagId}}, {new: true}).then((task) => {
-                resolve(task);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+        return this.model.findByIdAndUpdate(taskId, {$pull: {tags: tagId}}, {new: true});
     }
     
-    async getAllByTags(tagIds: string[]): Promise<TaskDTO[]> {
-        return new Promise<TaskDTO[]>(async(resolve, reject) => {
-            await this.model.find({tags: {$in: tagIds}}).then((tasks) => {
-                resolve(tasks);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+    async getAllByTags(userId: string, tagIds: string[]): Promise<TaskDTO[]> {
+        return this.model.find({user: userId, tags: {$in: tagIds}});
     }
 
     async removeTagFromAllTasks(tagId: string): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.model.updateMany({tags: tagId}, {$pull: {tags: tagId}}).then((tasks) => {
-                resolve(tasks);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+        return this.model.updateMany({tags: tagId}, {$pull: {tags: tagId}});
     }
 
-    async getAllTags(taskId: string): Promise<TaskDTO> {
-        return new Promise<TaskDTO>(async(resolve, reject) => {
-            await this.model.findById(taskId).populate("tags").then((task) => {
-                resolve(task);
-            }).catch((error) => {
-                reject(error);
-            });
-        });
+    async getAllTags(userId: string, taskId: string): Promise<TaskDTO> {
+        return this.model.findOne({user: userId, _id: taskId}).populate("tags");
     }
 }

@@ -1,5 +1,6 @@
 import {Router, Request, Response, Next} from "express"; 
 import { TagController } from "../controllers/tag.controller";
+import { verifyToken } from "../middleware/auth.middleware";
 
 export class TagRoutes {
     
@@ -13,23 +14,23 @@ export class TagRoutes {
 
     setRoutes(): void {
 
-        this.routes.get("/tags", (req: Request, res: Response) => {
+        this.routes.get("/tags", verifyToken, (req: Request, res: Response) => {
             this.controller.findAll(req, res);
         });
 
-        this.routes.get("/tags/:id", (req: Request, res: Response) => {
+        this.routes.get("/tags/:id", verifyToken, (req: Request, res: Response) => {
             this.controller.findById(req, res);
         });
 
-        this.routes.post("/tags", (req: Request, res: Response) => {
+        this.routes.post("/tags", verifyToken, (req: Request, res: Response) => {
             this.controller.create(req, res);
         });
 
-        this.routes.put("/tags/:id", (req: Request, res: Response) => {
+        this.routes.put("/tags/:id", verifyToken, (req: Request, res: Response) => {
             this.controller.update(req, res);
         });
 
-        this.routes.delete("/tags/:id", (req: Request, res: Response) => {
+        this.routes.delete("/tags/:id", verifyToken, (req: Request, res: Response) => {
             this.controller.deleteById(req, res);
         });
     }

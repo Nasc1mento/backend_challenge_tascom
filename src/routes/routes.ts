@@ -1,6 +1,7 @@
 import {Router, Request, Response} from "express";
 import { TagRoutes } from "./tag.routes";
 import { TaskRoutes } from "./task.routes";
+import { AuthRoutes } from "./auth.routes";
 
 export class Routes {
     
@@ -23,6 +24,7 @@ export class Routes {
     }
 
     private setRoutes(): void {
+        new AuthRoutes(this.routes).setRoutes();
         new TagRoutes(this.routes).setRoutes();
         new TaskRoutes(this.routes).setRoutes();
     }

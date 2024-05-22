@@ -1,9 +1,11 @@
 import { Request, Response, Next } from "express";
+
 import { TagService } from "../services/tag.service";
 import { TagDTO } from "../dto/tag/tag.dto";
 import { CreateTagDTO, createTagDTOSchema } from "../dto/tag/create.tag.dto";
 import { apiErrorHandler } from "../utils/api.error.handler";
 import { UpdateTagDto, updateTagDTOSchema } from "../dto/tag/update.tag.dto";
+import { HttpStatusCode } from "../errors/error";
 
 export class TagController {
 
@@ -15,51 +17,56 @@ export class TagController {
 
     async findById(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const id = req.params.id;
-            const tag = await this.service.getById(id);
-            return res.status(200).json(tag); 
+            const userId = req.user.payload._id;
+            const tagId = req.params.id;
+            const tag = await this.service.getById(userId, tagId);
+            return res.status(HttpStatusCode.OK).json(tag); 
         } catch (error: any) {
-            apiErrorHandler (error, req, res, "Fetch Tag Failed");
+            apiErrorHandler (error, req, res);
         }
     }
 
     async create(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const tag: CreateTagDTO = createTagDTOSchema.parse(req.body);
+            const userId = req.user.payload._id;
+            const tag: CreateTagDTO = createTagDTOSchema.parse({...req.body, user: userId});
             const newTag: TagDTO = await this.service.create(tag);
-            return res.status(200).json(newTag);
+            return res.status(HttpStatusCode.CREATED).json(newTag);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Create Tag Failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
     async update(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const tag: UpdateTagDto = updateTagDTOSchema.parse(req.body);
-            const id = req.params.id;
-            const updatedTag: TagDTO = await this.service.update(id, tag);
-            return res.status(200).json(updatedTag);
+            const userId = req.user.payload._id;
+            const tagId = req.params.id;
+            const tag: UpdateTagDto = updateTagDTOSchema.parse(req.body)
+            const updatedTag: TagDTO = await this.service.update(userId, tagId, tag);
+            return res.status(HttpStatusCode.OK).json(updatedTag);
         } catch(error: any) {
-            apiErrorHandler(error, req, res, "Update Tag Failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
     async deleteById(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const id = req.params.id;
-            const deletedTag: TagDTO = await this.service.deleteById(id);
-            return res.status(200).json(deletedTag);
+            const userId = req.user.payload._id;
+            const tagId = req.params.id;
+            const deletedTag: TagDTO = await this.service.deleteById(userId, tagId);
+            return res.status(HttpStatusCode.OK).json(deletedTag);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Delete Tag Failed");
+            apiErrorHandler(error, req, res);
         }
     } 
     
     async findAll(req: Request, res: Response): Promise<Response<TagDTO[]>> {
         try {
-            const tags:TagDTO[] = await this.service.getAll();
-            return res.status(200).json(tags);
+            const userId = req.user.payload._id;
+            const tags:TagDTO[] = await this.service.getAll(userId);
+            return res.status(HttpStatusCode.OK).json(tags);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Fetch Tags Failed");
+            apiErrorHandler(error, req, res);
         }
     }
 }

@@ -1,9 +1,11 @@
+import { Request, Response } from "express";
+
 import { CreateTaskDTO, createTaskDTOSchema } from "../dto/task/create.task.dto";
 import { TaskDTO } from "../dto/task/task.dto";
 import { UpdateTaskDTO, updateTaskDTOSchema } from "../dto/task/update.task.dto";
 import { apiErrorHandler } from "../utils/api.error.handler";
 import { TaskService } from "../services/task.service"
-import { Request, Response } from "express";
+import { HttpStatusCode } from "../errors/error";
 
 export class TaskController {
 
@@ -16,50 +18,55 @@ export class TaskController {
     async findById(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const id = req.params.id;
-            const task: TaskDTO = await this.service.getById(id);
-            return res.status(200).json(task);
+            const userId = req.user.payload._id;
+            const task: TaskDTO = await this.service.getById(userId, id);
+            return res.status(HttpStatusCode.OK).json(task);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Fetching task failed");
+            apiErrorHandler(error, req, res);
         }
     }
     
     async create(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
-            const task: CreateTaskDTO = createTaskDTOSchema.parse(req.body);
+            const body = {...req.body, user: req.user.payload._id}
+            const task: CreateTaskDTO = createTaskDTOSchema.parse(body);
             const newTask: TaskDTO = await this.service.create(task);
-            return res.status(200).json(newTask);
+            return res.status(HttpStatusCode.CREATED).json(newTask);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Creating task failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
     async update(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
+            const taskId = req.params.id;
+            const userId = req.user.payload._id;
             const task: UpdateTaskDTO = updateTaskDTOSchema.parse(req.body);
-            const id = req.params.id;
-            const updatedTask = await this.service.update(id, task);
-            return res.status(200).json(updatedTask);
+            const updatedTask = await this.service.update(userId, taskId, task);
+            return res.status(HttpStatusCode.OK).json(updatedTask);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Updating task failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
     async delete(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
-            const id = req.params.id;
-            const deletedTask: TaskDTO = await this.service.deleteById(id);
-            return res.status(200).json(deletedTask);
+            const taskId = req.params.id;
+            const userId = req.user.payload._id;
+            const deletedTask: TaskDTO = await this.service.deleteById(userId, taskId);
+            return res.status(HttpStatusCode.OK).json(deletedTask);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Deleting task failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
     async findAll(req: Request, res: Response) : Promise<Response<TaskDTO[]>> {
         try {
-            const tasks:TaskDTO[]  = await this.service.getAll();
-            return res.status(200).json(tasks);
+            const id: string = req.user.payload._id;
+            const tasks:TaskDTO[]  = await this.service.getAll(id);
+            return res.status(HttpStatusCode.OK).json(tasks);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Fetching tasks failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
@@ -67,10 +74,11 @@ export class TaskController {
         try {
             const taskId: string = req.params.taskId;
             const tagId: string = req.params.tagId;
-            const task: TaskDTO = await this.service.addTagToTask(taskId, tagId);
-            return res.status(200).json(task);
+            const userId: string = req.user.payload._id;
+            const task: TaskDTO = await this.service.addTagToTask(userId, taskId, tagId);
+            return res.status(HttpStatusCode.OK).json(task);
         } catch (error) {
-            apiErrorHandler(error, req, res, "Adding tag to task failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
@@ -78,30 +86,33 @@ export class TaskController {
         try {
             const taskId = req.params.taskId;
             const tagId = req.params.tagId;
-            const task: TaskDTO = await this.service.removeTagFromTask(taskId, tagId);
-            return res.status(200).json(task);
+            const userId = req.user.payload._id;
+            const task: TaskDTO = await this.service.removeTagFromTask(userId, tagId, taskId);
+            return res.status(HttpStatusCode.OK).json(task);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Removing tag from task failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
     async getTasksByTags(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
-            const tags = req.params.tagIds.split(",");
-            const tasks: TaskDTO[] = await this.service.getTasksByTags(tags);
-            return res.status(200).json(tasks);
+            const tagIds = req.params.tagIds.split(",");
+            const userId = req.user.payload._id;
+            const tasks: TaskDTO[] = await this.service.getTasksByTags(userId, tagIds);
+            return res.status(HttpStatusCode.OK).json(tasks);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Fetching tasks by tags failed");
+            apiErrorHandler(error, req, res);
         }
     }
 
     async getTagsFromTask(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const taskId = req.params.id;
-            const task: TaskDTO = await this.service.getTagsByTask(taskId);
-            return res.status(200).json(task.tags);
+            const userId = req.user.payload._id;
+            const task: TaskDTO = await this.service.getTagsByTask(userId, taskId);
+            return res.status(HttpStatusCode.OK).json(task.tags);
         } catch (error: any) {
-            apiErrorHandler(error, req, res, "Fetching tags from task failed");
+            apiErrorHandler(error, req, res);
         }
     }
 }

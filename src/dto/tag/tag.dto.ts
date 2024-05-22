@@ -1,11 +1,10 @@
-
-import mongoose from 'mongoose';
 import {z} from 'zod';
 
 export const tagDTOSchema = z.object({
-    _id: z.custom<mongoose.Types.ObjectId>(),
+    id: z.string(),
     name: z.string().min(3).max(128),
     color: z.string().optional(),
+    user: z.string(),
 })
 
 export type TagDTO = z.infer<typeof tagDTOSchema>

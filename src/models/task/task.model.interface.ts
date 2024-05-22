@@ -4,4 +4,5 @@ export interface ITask {
     priority: number;
     description: string;
     tags: any[];
+    user: any;
 }
