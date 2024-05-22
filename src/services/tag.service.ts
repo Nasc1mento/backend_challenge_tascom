@@ -1,4 +1,6 @@
+import { CreateTagDTO } from "../dto/tag/create.tag.dto";
 import { TagDTO } from "../dto/tag/tag.dto";
+import { UpdateTagDto } from "../dto/tag/update.tag.dto";
 import { ITag } from "../models/tag/tag.model.interface";
 import { TagRepository } from "../repositories/tag";
 import { TaskRepository } from "../repositories/task";
@@ -14,7 +16,7 @@ export class TagService {
         this.taskRepository = new TaskRepository;
     }
 
-    async create(tag: ITag) :Promise<TagDTO> {
+    async create(tag: CreateTagDTO) :Promise<TagDTO> {
         return await this.tagRepository.save(tag);
     }
 
@@ -26,7 +28,7 @@ export class TagService {
         return await this.tagRepository.getAll();
     }
 
-    async update(id: string, tag: ITag): Promise<TagDTO> {
+    async update(id: string, tag: UpdateTagDto): Promise<TagDTO> {
         return await this.tagRepository.update(id, tag);
     }
 

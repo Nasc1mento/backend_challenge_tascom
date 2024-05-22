@@ -6,7 +6,7 @@
     "version": "1.0.0"
   },
   "host": "localhost:8080",
-  "basePath": "/",
+  "basePath": "/api",
   "schemes": [
     "http"
   ],
@@ -39,6 +39,15 @@
       },
       "post": {
         "description": "Add Tag",
+        "parameters": [
+          {
+            "name": "task",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTagDTO"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Ok",
@@ -82,7 +91,7 @@
             "name": "tag",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/CreateTagDTO"
+              "$ref": "#/definitions/UpdateTagDTO"
             }
           }
         ],
