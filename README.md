@@ -19,7 +19,7 @@ A API foi desenvolvida com Node.js, Express e MongoDB.
   |__/dto               # Objetos de entrada e saída
   |__/env               # Variáveis de ambiente
   |__/errors            # Tratamento de erros
-  |__/middlewares       # Middlewares
+  |__/middleware        # Middleware
   |__/models            # Modelos de dados
   |__/repositories      # Camada de acesso a dados
   |__/routes            # Endpoints da API
@@ -45,7 +45,7 @@ A API foi desenvolvida com Node.js, Express e MongoDB.
 
 ### Documentação
 
-A documentação da API foi feita com o Swagger e pode ser acessada em `http://localhost:8080/docs`
+A documentação da API foi feita com o Swagger e pode ser acessada em `http://localhost:8080/api/docs`
 
 ## Licença
 [MIT](https://github.com/Nasc1mento/backend_challenge_tascom/blob/main/LICENSE)
