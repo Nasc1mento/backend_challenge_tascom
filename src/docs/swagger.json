@@ -37,7 +37,7 @@
         "description": "Check if the API is running",
         "responses": {
           "200": {
-            "description": "Hello world"
+            "description": "Welcome to the TODO API"
           }
         }
       }
@@ -118,6 +118,11 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tags"
         ],
@@ -143,6 +148,11 @@
     },
     "/tags/{id}": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tags"
         ],
@@ -165,6 +175,11 @@
         }
       },
       "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tags"
         ],
@@ -194,6 +209,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tags"
         ],
@@ -218,6 +238,11 @@
     },
     "/tasks": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -232,6 +257,11 @@
         }
       },
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -257,6 +287,11 @@
     },
     "/tasks/{id}": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -279,6 +314,11 @@
         }
       },
       "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -308,6 +348,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -332,6 +377,11 @@
     },
     "/tasks/tags/{tagIds}": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -356,6 +406,11 @@
     },
     "/tasks/{taskId}/tags/{tagId}": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -384,6 +439,11 @@
         }
       },
       "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
@@ -414,6 +474,11 @@
     },
     "tasks/{taskId}/tags": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tasks"
         ],
