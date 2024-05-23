@@ -10,6 +10,24 @@
   "schemes": [
     "http"
   ],
+
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "bearerFormat": "JWT",
+      "description": "For accessing the API a valid JWT token must be passed in the header. Call /login to get a token."
+    }
+  },
+
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+
   "paths": {
     "/": {
       "get": {
@@ -24,8 +42,64 @@
         }
       }
     },
+
+    "/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Register a new user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RegisterDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/UserDTO"
+            }
+          }
+        }
+      }
+    },
+
+    "/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Login",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "token": "string"
+          }
+        }
+      }
+    },
+
     "/tags": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Tags"
         ],
@@ -387,6 +461,10 @@
         "description": {
           "type": "My description",
           "example": "My description"
+        },
+        "user": {
+          "type": "string",
+          "example": "664cca3c50e95073fa24c048"
         }
       }
     },
@@ -416,6 +494,10 @@
         "tags": {
           "type": "array",
           "example": "[664cca3c50e95073fa24c048, 664cca3c50e95073fa24c049]"
+        },
+        "user": {
+          "type": "string",
+          "example": "664cca3c50e95073fa24c048"
         }
       }
     },
@@ -480,6 +562,53 @@
         "color": {
           "type": "string",
           "example": "My color"
+        }
+      }
+    },
+    "RegisterDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "My name"
+        },
+        "email": {
+          "type": "string",
+          "example": "my@email.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "My password"
+        }
+      }
+    },
+    "LoginDTO": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "my@email.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "My password"
+        }
+      }
+    },
+    "UserDTO": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "664993835bd26a29a33e3a43"
+        },
+        "name": {
+          "type": "string",
+          "example": "My name"
+        },
+        "email": {
+          "type": "string",
+          "example": "My email"
         }
       }
     }
