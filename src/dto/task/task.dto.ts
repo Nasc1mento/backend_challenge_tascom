@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import {z} from "zod";
 
 export const taskDTOSchema = z.object({
-    _id: z.custom<mongoose.Types.ObjectId>(),
+    id: z.string(),
     title: z.string().min(3).max(128),
     status: z.enum(["ongoing", "completed"]).default("ongoing"),
     priority: z.number().min(1).max(10),

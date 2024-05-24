@@ -17,7 +17,7 @@ export class TagController {
 
     async findById(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const tagId = req.params.id;
             const tag = await this.service.getById(userId, tagId);
             return res.status(HttpStatusCode.OK).json(tag); 
@@ -28,7 +28,7 @@ export class TagController {
 
     async create(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const tag: CreateTagDTO = createTagDTOSchema.parse({...req.body, user: userId});
             const newTag: TagDTO = await this.service.create(tag);
             return res.status(HttpStatusCode.CREATED).json(newTag);
@@ -39,7 +39,7 @@ export class TagController {
 
     async update(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const tagId = req.params.id;
             const tag: UpdateTagDto = updateTagDTOSchema.parse(req.body)
             const updatedTag: TagDTO = await this.service.update(userId, tagId, tag);
@@ -51,7 +51,7 @@ export class TagController {
 
     async deleteById(req: Request, res: Response): Promise<Response<TagDTO>> {
         try {
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const tagId = req.params.id;
             const deletedTag: TagDTO = await this.service.deleteById(userId, tagId);
             return res.status(HttpStatusCode.OK).json(deletedTag);
@@ -62,7 +62,7 @@ export class TagController {
     
     async findAll(req: Request, res: Response): Promise<Response<TagDTO[]>> {
         try {
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const tags:TagDTO[] = await this.service.getAll(userId);
             return res.status(HttpStatusCode.OK).json(tags);
         } catch (error: any) {

@@ -18,7 +18,7 @@ export class TaskController {
     async findById(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const id = req.params.id;
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const task: TaskDTO = await this.service.getById(userId, id);
             return res.status(HttpStatusCode.OK).json(task);
         } catch (error: any) {
@@ -28,7 +28,7 @@ export class TaskController {
     
     async create(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
-            const body = {...req.body, user: req.user.payload._id}
+            const body = {...req.body, user: req.user.user._id}
             const task: CreateTaskDTO = createTaskDTOSchema.parse(body);
             const newTask: TaskDTO = await this.service.create(task);
             return res.status(HttpStatusCode.CREATED).json(newTask);
@@ -40,7 +40,7 @@ export class TaskController {
     async update(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const taskId = req.params.id;
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const task: UpdateTaskDTO = updateTaskDTOSchema.parse(req.body);
             const updatedTask = await this.service.update(userId, taskId, task);
             return res.status(HttpStatusCode.OK).json(updatedTask);
@@ -52,7 +52,7 @@ export class TaskController {
     async delete(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const taskId = req.params.id;
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const deletedTask: TaskDTO = await this.service.deleteById(userId, taskId);
             return res.status(HttpStatusCode.OK).json(deletedTask);
         } catch (error: any) {
@@ -62,7 +62,7 @@ export class TaskController {
 
     async findAll(req: Request, res: Response) : Promise<Response<TaskDTO[]>> {
         try {
-            const id: string = req.user.payload._id;
+            const id: string = req.user.user._id;
             const tasks:TaskDTO[]  = await this.service.getAll(id);
             return res.status(HttpStatusCode.OK).json(tasks);
         } catch (error: any) {
@@ -74,7 +74,7 @@ export class TaskController {
         try {
             const taskId: string = req.params.taskId;
             const tagId: string = req.params.tagId;
-            const userId: string = req.user.payload._id;
+            const userId: string = req.user.user._id;
             const task: TaskDTO = await this.service.addTagToTask(userId, taskId, tagId);
             return res.status(HttpStatusCode.OK).json(task);
         } catch (error) {
@@ -86,7 +86,7 @@ export class TaskController {
         try {
             const taskId = req.params.taskId;
             const tagId = req.params.tagId;
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const task: TaskDTO = await this.service.removeTagFromTask(userId, tagId, taskId);
             return res.status(HttpStatusCode.OK).json(task);
         } catch (error: any) {
@@ -97,7 +97,7 @@ export class TaskController {
     async getTasksByTags(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const tagIds = req.params.tagIds.split(",");
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const tasks: TaskDTO[] = await this.service.getTasksByTags(userId, tagIds);
             return res.status(HttpStatusCode.OK).json(tasks);
         } catch (error: any) {
@@ -108,7 +108,7 @@ export class TaskController {
     async getTagsFromTask(req: Request, res: Response) : Promise<Response<TaskDTO>> {
         try {
             const taskId = req.params.id;
-            const userId = req.user.payload._id;
+            const userId = req.user.user._id;
             const task: TaskDTO = await this.service.getTagsByTask(userId, taskId);
             return res.status(HttpStatusCode.OK).json(task.tags);
         } catch (error: any) {
